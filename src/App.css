@@ -2,37 +2,51 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.App-body {
+  background-color: #004B57;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.titulo {
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card1 {
+  position: relative; /* Permite posicionar elementos internos */
+  height: 350px;
+  width: 200px;
+  border: solid 1px #000;
+  border-radius: 20px;
+  overflow: hidden; 
+}
+
+.card1 .background {
+  position: absolute; /* Posiciona no fundo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #58B8F1;
+}
+
+.card1 .content {
+  position: relative; /* Garante que conteúdo fique acima do fundo */
+  z-index: 1; /* Eleva o conteúdo acima do fundo */
+}
+
+.card1:hover {
+  transform: scale(1.2);
+  transition: 0.5s ease; /* Suave transição de transformação */
+}
+
+.Card-container {
+  display: grid; /* Ativa o Grid */
+  grid-template-columns: repeat(5, 1fr); /* Cinco colunas de tamanho igual */
+  gap: 20px; /* Espaçamento entre os cards */
 }
