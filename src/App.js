@@ -5,21 +5,9 @@ import solNuvens from './assets/solEntreNuvens.gif';
 import noite from './assets/noiteLimpa.gif';
 import nublado from './assets/nublado.gif';
 import RealtimeClock from './componets/realtime';
+import WeatherCard from './componets/weatherCard';
 
 function App() {
-
-  let day = new Date().getDay();
-  const diasDaSemana = [
-    'Domingo',
-    'Segunda-feira',
-    'Terça-feira',
-    'Quarta-feira',
-    'Quinta-feira',
-    'Sexta-feira',
-    'Sábado'
-  ];
-
-  const nomeDoDiaDaSemana = diasDaSemana[day];
 
   return (
     <div className="App">
@@ -27,58 +15,38 @@ function App() {
         <div className='titulo'>
         <h2>Passo Fundo</h2>
         <RealtimeClock />
+        <form action='www.google.com' id='inputText'>
+        <input type='text' />
+        </form>
+        <button type='sumit' form='inputText'>Enviar</button>
         </div>
         <div className='Card-container'>
-        <div className='card1'>
-            <div className="background"></div> {/* Plano de fundo */}
-            <div className="content"> {/* Conteúdo do card */}
-              <h3>Segunda-feira</h3>
-              <br />
-              <img src={sol} alt="sol"/>
-              <br />
-              <h1>23°C</h1>
-            </div>
-        </div>
-        <div className='card1'>
-            <div className="background"></div> {/* Plano de fundo */}
-            <div className="content"> {/* Conteúdo do card */}
-              <h3>Terça-feira</h3>
-              <br />
-              <img src={solNuvens} alt="Nuvens"/>
-              <br />
-              <h1>18°C</h1>
-            </div>
-        </div>
-        <div className='card1'>
-            <div className="background"></div> {/* Plano de fundo */}
-            <div className="content"> {/* Conteúdo do card */}
-              <h3>Quarta-feira</h3>
-              <br />
-              <img src={nublado} alt="nublado"/>
-              <br />
-              <h1>15°C</h1>
-            </div>
-        </div>
-        <div className='card1'>
-            <div className="background"></div> {/* Plano de fundo */}
-            <div className="content"> {/* Conteúdo do card */}
-              <h3>Quinta-feira</h3>
-              <br />
-              <img src={chuva} alt="chuva"/>
-              <br />
-              <h1>12°C</h1>
-            </div>
-        </div>
-        <div className='card1'>
-            <div className="background"></div> {/* Plano de fundo */}
-            <div className="content"> {/* Conteúdo do card */}
-              <h3>Sexta-feira</h3>
-              <br />
-              <img src={noite} alt="noite"/>
-              <br />
-              <h1>16°C</h1>
-            </div>
-        </div>          
+           
+          <WeatherCard 
+            dayName= "Segunda-feira"
+            image= {sol}
+            temperature="23"
+          />         
+          {/* <WeatherCard 
+            dayName= "Terça-feira"
+            image= {solNuvens}
+            temperature="18"
+          />         
+          <WeatherCard 
+            dayName= "Quarta-feira"
+            image= {nublado}
+            temperature="16"
+          />         
+          <WeatherCard 
+            dayName= "Quinta-feira"
+            image= {chuva}
+            temperature="12"
+          />         
+          <WeatherCard 
+            dayName= "Sexta-feira"
+            image= {noite}
+            temperature="14"
+          />          */}
         </div>
       </header>
       <body>

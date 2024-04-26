@@ -13,10 +13,6 @@
   color: white;
 }
 
-.titulo {
-  
-}
-
 .card1 {
   position: relative; /* Permite posicionar elementos internos */
   height: 350px;
@@ -37,16 +33,15 @@
 
 .card1 .content {
   position: relative; /* Garante que conteúdo fique acima do fundo */
-  z-index: 1; /* Eleva o conteúdo acima do fundo */
 }
 
 .card1:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   transition: 0.5s ease; /* Suave transição de transformação */
 }
 
 .Card-container {
   display: grid; /* Ativa o Grid */
-  grid-template-columns: repeat(5, 1fr); /* Cinco colunas de tamanho igual */
+  grid-template-columns: repeat(1, 1fr); /* Cinco colunas de tamanho igual */
   gap: 20px; /* Espaçamento entre os cards */
 }
