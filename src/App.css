@@ -1,47 +1,22 @@
 .App {
   text-align: center;
-}
-
-.App-body {
-  background-color: #004B57;
+  /* background-color: #004B57; */
+  background-image: url('./assets/papel-de-parede-paisagem-natural-e-nuvens.jpg.webp');
+  background-size: cover;
+  height: 100vh;
   min-height: 100vh;
   display: grid;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* font-size: calc(10px + 2vmin); */
+  color: black;
 }
 
-.card1 {
-  position: relative; /* Permite posicionar elementos internos */
-  height: 350px;
-  width: 200px;
-  border: solid 1px #000;
-  border-radius: 20px;
-  overflow: hidden; 
+.inputText {
+  border-radius: 5px;
 }
 
-.card1 .background {
-  position: absolute; /* Posiciona no fundo */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #58B8F1;
-}
-
-.card1 .content {
-  position: relative; /* Garante que conteúdo fique acima do fundo */
-}
-
-.card1:hover {
-  transform: scale(1.1);
-  transition: 0.5s ease; /* Suave transição de transformação */
-}
-
-.Card-container {
-  display: grid; /* Ativa o Grid */
-  grid-template-columns: repeat(1, 1fr); /* Cinco colunas de tamanho igual */
-  gap: 20px; /* Espaçamento entre os cards */
+.sendButton {
+  border-radius: 5px;
 }

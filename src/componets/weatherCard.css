@@ -1,0 +1,38 @@
+.card1 {
+    position: relative; /* Permite posicionar elementos internos */
+    height: 200px;
+    width: 350px;
+    /* border: solid 1px #1c77ac; */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.965);
+  }
+  
+  .card1 .background {
+    position: absolute; /* Posiciona no fundo */
+    width: 100vh;
+    height: 100vh;
+    background: rgba(52, 50, 50, 0.2); /* Fundo branco translúcido */
+    backdrop-filter: blur(10px); /* Desfoque para efeito de vidro */
+    -webkit-backdrop-filter: blur(10px); /* Compatibilidade com navegadores antigos */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Bordas para imitar vidro */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra para dar profundidade */
+    padding: 20px; /* Espaçamento interno */
+    color: #000; /* Cor do texto para contraste */
+    text-align: center; /* Alinhamento do texto */
+  }
+  
+  .card1 .content {
+    position: relative; /* Garante que conteúdo fique acima do fundo */
+  }
+  
+  .card1:hover {
+    transform: scale(1.1);
+    transition: 0.6s; /* Suave transição de transformação */
+  }
+
+  .imageWeather {
+    height: 60px;
+    width: 60px;
+  }

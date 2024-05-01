@@ -1,58 +1,66 @@
 import './App.css';
-import chuva from './assets/chuva.gif';
-import sol from './assets/diaLimpo.gif';
-import solNuvens from './assets/solEntreNuvens.gif';
-import noite from './assets/noiteLimpa.gif';
-import nublado from './assets/nublado.gif';
+import React, { useState } from 'react';
+import sol from './assets/sun.png';
+import solNuvens from './assets/cloudy.png';
+import chuva from './assets/storm.png';
 import RealtimeClock from './componets/realtime';
 import WeatherCard from './componets/weatherCard';
+import { sendRequest } from './componets/consulta';
 
 function App() {
 
+  const [weatherData, setWeatherData] = useState(null);  // Estado para armazenar dados do clima
+  const [city, setCity] = useState('');  // Estado para armazenar a cidade digitada
+  const [error, setError] = useState(null);  // Estado para armazenar erros
+
+  // Manipulador para o clique do botão "Enviar"
+  const handleSend = async () => {
+    try {
+      const data = await sendRequest(city);  // Chama a função para obter dados do clima
+      setWeatherData(data);  // Atualiza o estado com a resposta da requisição
+      setError(null);  // Limpa o erro se a requisição foi bem-sucedida
+    } catch (err) {
+      setError(err.message);  // Define o estado do erro se algo deu errado
+    }
+  };
+
+  // Retorna a imagem com base na condição climática
+  const getWeatherIcon = (condition) => {
+    if (condition.includes("cloud")) {
+      return solNuvens;
+    } else if (condition.includes("rain") || condition.includes("storm")) {
+      return chuva;
+    } else {
+      return sol;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-body">
+    <header className="App">
+
         <div className='titulo'>
-        <h2>Passo Fundo</h2>
-        <RealtimeClock />
-        <form action='www.google.com' id='inputText'>
-        <input type='text' />
-        </form>
-        <button type='sumit' form='inputText'>Enviar</button>
+          <h1>Clima em {city || 'Passo Fundo'}</h1>
+          <RealtimeClock />
+          <input type='text' 
+          className='inputText' 
+          value={city} 
+          onChange={(e) => setCity(e.target.value)} />
+          <button 
+          className='sendButton'
+          onClick={handleSend}
+          >
+            Enviar
+          </button>
         </div>
-        <div className='Card-container'>
-           
+        {error && <div className='error-message'>Erro: {error}</div>}
+        {weatherData &&(
           <WeatherCard 
-            dayName= "Segunda-feira"
-            image= {sol}
-            temperature="23"
-          />         
-          {/* <WeatherCard 
-            dayName= "Terça-feira"
-            image= {solNuvens}
-            temperature="18"
-          />         
-          <WeatherCard 
-            dayName= "Quarta-feira"
-            image= {nublado}
-            temperature="16"
-          />         
-          <WeatherCard 
-            dayName= "Quinta-feira"
-            image= {chuva}
-            temperature="12"
-          />         
-          <WeatherCard 
-            dayName= "Sexta-feira"
-            image= {noite}
-            temperature="14"
-          />          */}
-        </div>
+            dayName= {weatherData.dayName}
+            image= {getWeatherIcon(weatherData.current.condition.text)}
+            temperature={weatherData.current.temp_c.toString()}
+          />    
+        )}
       </header>
-      <body>
-        
-      </body>
-    </div>
   );
 }
 
