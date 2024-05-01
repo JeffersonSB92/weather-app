@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'https://api.weatherapi.com/v1/current.json';
+const BASE_URL = 'https://api.weatherapi.com/v1/forecast.json';
 const API_TOKEN = 'ec2d2d215d9d4849a7e04103240105';  // Chave de API
 
 function capitalizeFirstLetter(string) {
@@ -8,9 +8,9 @@ function capitalizeFirstLetter(string) {
 }
 
 // Função para enviar a requisição POST
-export const sendRequest = async (city) => {
+export const sendRequest = async (city, days) => {
     try {
-        const response = await axios.get(`${BASE_URL}?q=${city}`, {
+        const response = await axios.get(`${BASE_URL}?q=${city}&days=${days}`, {
                 headers: {
                     'key': API_TOKEN,  // Correção do erro de digitação
                 },
