@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import sol from './assets/sun.png';
 import solNuvens from './assets/cloudy.png';
 import chuva from './assets/storm.png';
@@ -13,24 +13,11 @@ function App() {
   const [error, setError] = useState(null);  // Estado para armazenar erros
   const [title, setTitle] = useState('Digite sua cidade');
   const [days, setDays] = useState('1');
+  const [lastCity, setLastCity] = useState(null);
 
-  // Manipulador para o clique do botão "Enviar"
-  const handleSend = async () => {
-    try {
-      const data = await sendRequest(city, days);  // Chama a função para obter dados do clima
-      setWeatherData(data);  // Atualiza o estado com a resposta da requisição
-      setError(null); // Limpa o erro se a requisição foi bem-sucedida
-      setTitle(`Clima em ${city}`); 
-      setCity(''); 
-    } catch (err) {
-      setError(err.message);  // Define o estado do erro se algo deu errado
-    }
-  };
+  useEffect(() => {
+  }, [lastCity]);
 
-  const handleClick = (newDays) => {
-    setDays(newDays);
-
-  }
   
   // Retorna a imagem com base na condição climática
   const getWeatherIcon = (condition) => {
@@ -42,13 +29,57 @@ function App() {
       return sol;
     }
   };
-
-  const handleKeyDown = (e) => {
+  
+  const handleKeyDown = async (e) => {
     if (e.key === 'Enter') { // Verifica se a tecla pressionada é "Enter"
-      handleSend(); // Chama a função de envio
+      const currentCity = city;
+      try {
+        const data = await sendRequest(city, days);  // Chama a função para obter dados do clima
+        setWeatherData(data);  // Atualiza o estado com a resposta da requisição
+        console.log(data);
+        setError(null); // Limpa o erro se a requisição foi bem-sucedida
+        setTitle(`Clima em ${city}`); 
+        setLastCity(currentCity);
+        setCity('');
+      } catch (err) {
+        setError(err.message);  // Define o estado do erro se algo deu errado
+      }
+    }
+  };
+  
+  const handleClick = async (days) => {
+    if (city || lastCity) {
+      const currentCity = city || lastCity;
+      try {
+        const data = await sendRequest(currentCity, days);  // Chama a função para obter dados do clima
+        setWeatherData(data);  // Atualiza o estado com a resposta da requisição
+        setError(null); // Limpa o erro se a requisição foi bem-sucedida
+        setTitle(`Clima em ${currentCity}`); 
+        setLastCity(currentCity);
+        setCity('');
+      } catch (err) {
+        setError(err.message);  // Define o estado do erro se algo deu errado
+      }
+    } else {
+      setDays(days);
     }
   };
 
+  const renderWeatherCards = () => {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.forecastday) {
+      return null;
+    }
+
+    return weatherData.forecast.forecastday.map((forecastDay, index) => (
+      <WeatherCard
+        key={index}
+        dayName={forecastDay.date} // Você pode formatar a data para o nome do dia da semana
+        image={getWeatherIcon(forecastDay.day.condition.text)}
+        minTemp={forecastDay.day.mintemp_c.toString()}
+        maxTemp={forecastDay.day.maxtemp_c.toString()}
+      />
+    ));
+  };
 
   return (
     <header className="App">
@@ -68,14 +99,7 @@ function App() {
           </div>          
         </div>
         {error && <div className='error-message'>Erro: {error}</div>}
-        {weatherData &&(
-          <WeatherCard 
-            dayName= {weatherData.dayName}
-            image= {getWeatherIcon(weatherData.forecast.forecastday[0].day.condition.text)}
-            minTemp={weatherData.forecast.forecastday[0].day.mintemp_c.toString()}
-            maxTemp={weatherData.forecast.forecastday[0].day.maxtemp_c.toString()}
-          />    
-        )}
+        {weatherData && <div className='weather-cards'>{renderWeatherCards()}</div>}
       </header>
   );
 }
